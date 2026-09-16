@@ -47,7 +47,7 @@ def register(data: Registration, db=Depends(get_db)):
             (data.username,hashed_password)
         )
         db.commit()
-    except:
+    except sqlite3.IntegrityError:
         db.rollback()
         raise HTTPException(
             status_code=409,
